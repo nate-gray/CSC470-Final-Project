@@ -24,7 +24,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
     header("Refresh:3; url=admin.php");
     mysqli_close($dbc);
     } elseif($_POST['change'] == 'make_admin') {
-        $query = "UPDATE users SET admin='Y' WHERE username='{$_POST['user']}'";
+        $query = "UPDATE users SET admin='Y', status='OPEN' WHERE username='{$_POST['user']}'";
     if($result = mysqli_query($dbc, $query)) {
         print '<p class="input--success">Account is now admin.</p>';
     } else {
