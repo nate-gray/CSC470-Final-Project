@@ -36,8 +36,15 @@ if(isset ($_SESSION['username'])) {
             
             print '> Locked<br>';
             
-            print '<input type="radio" name="change" value="make_admin"> Grant Administrator Role<br>'
-            . '<input type="radio" name="change" value="delete"> Delete This Account<br>'
+            print '<input type="radio" name="change"'; 
+            
+            if($row['admin'] == 'Y') {
+                print 'value="revoke_admin"> Revoke Administrator Role<br>';
+            } else {
+                print 'value="make_admin"> Grant Administrator Role<br>';
+            }
+            
+            print '<input type="radio" name="change" value="delete"> Delete This Account<br>'
             . '<input type="hidden" name="user" value="'. $_POST['un'] . '">'
             . '</div>'
             . '<input type="submit" name="submit" value="Submit Changes" class="button--pill">'
@@ -56,7 +63,9 @@ if(isset ($_SESSION['username'])) {
         $query_users = "SELECT username FROM users";
         if ($result = mysqli_query($dbc, $query_users)) { 
             while($row = mysqli_fetch_array($result)) {
-                print '<option value="' . $row['username'] . '">' . $row['username'] . '</option>';
+                if($row['username'] != $_SESSION['username']) {
+                    print '<option value="' . $row['username'] . '">' . $row['username'] . '</option>';
+                }  
             }
             
         }

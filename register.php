@@ -2,15 +2,13 @@
 define('TITLE', 'Register');
 include('templates/header.php');
 
-// TODO: Do not make available if logged in and registered. 
 
-// Print some introductory text:
-print '<h2>Registration Form</h2>
-	<p>Register so that you can take full advantage of this site.</p>';
 
 include('../mysqli_connect.php');
-//$dbc = mysqli_connect('localhost', 'web_user', 'webpassword', 'fanclub');
-//mysqli_set_charset($dbc, 'utf8');
+
+if(isset($_SESSION['username'])) {
+    header("Location: index.php");
+} 
 
 // Check if the form has been submitted:
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -50,17 +48,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         // If the username does not exist, then add them to the db. 
         if(!$un_exists) {
             // Display a message.
-            print '<p class="input--success">You are now registered! Redirecting to home page...</p>';
+            print '<p class="input--success">You are now registered! <a href="login.php">Click here</a> to login.</p>';
             
             // Add them to the db
             $un = mysqli_real_escape_string($dbc, trim(strip_tags($_POST['username'])));
             $pw = password_hash(trim($_POST['password1']), PASSWORD_DEFAULT);
             $query = "INSERT INTO users (username, password, user_dir, status, admin) VALUES ('$un', '$pw', '$un', 'OPEN', 'N')";
             mysqli_query($dbc, $query);
-            
-            // Set the users status to logged in.
-            $_SESSION['username'] = $un;
-            $_SESSION['loggedin'] = time();
 
             // Create the users directory along with the csv file
             $dir = '../users/' . $un;
@@ -71,8 +65,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             // Clear the posted values:
             $_POST = []; 
             
-            //Redirect to home page
-            header("Location: index.php");
             
         } else { // If the username already exists
             print '<p class="input--error">Username already exists!</p>';
