@@ -5,7 +5,10 @@ include('templates/header.php');
 //Connect to the db
 include('../mysqli_connect.php');
 
-// Print some introductory text:
+if(isset($_SESSION['username'])) {
+    print '<p>You are already logged in!</p>';
+} else {
+    // Print some introductory text:
 print '<h2>Login Form</h2>
 	<p>Please login to get full access to the site.</p>';
 
@@ -69,6 +72,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     </form>';
 
 }
+}
+
+
 
 include('templates/footer.php'); // Need the footer.
 ?>
