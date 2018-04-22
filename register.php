@@ -50,17 +50,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         // If the username does not exist, then add them to the db. 
         if(!$un_exists) {
             // Display a message.
-            print '<p class="input--success">You are now registered! Redirecting to home page...</p>';
+            print '<p class="input--success">You are now registered! <a href="login.php">Click here</a> to login.</p>';
             
             // Add them to the db
             $un = mysqli_real_escape_string($dbc, trim(strip_tags($_POST['username'])));
             $pw = password_hash(trim($_POST['password1']), PASSWORD_DEFAULT);
             $query = "INSERT INTO users (username, password, user_dir, status, admin) VALUES ('$un', '$pw', '$un', 'OPEN', 'N')";
             mysqli_query($dbc, $query);
-            
-            // Set the users status to logged in.
-            $_SESSION['username'] = $un;
-            $_SESSION['loggedin'] = time();
 
             // Create the users directory along with the csv file
             $dir = '../users/' . $un;
@@ -71,8 +67,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             // Clear the posted values:
             $_POST = []; 
             
-            //Redirect to home page
-            header("Location: index.php");
             
         } else { // If the username already exists
             print '<p class="input--error">Username already exists!</p>';
