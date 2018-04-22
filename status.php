@@ -32,7 +32,17 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
     header("Refresh:3; url=admin.php");
     mysqli_close($dbc);
-    } elseif($_POST['change'] == 'delete') {
+    } elseif($_POST['change'] == 'revoke_admin') {
+        $query = "UPDATE users SET admin='N' WHERE username='{$_POST['user']}'";
+    if($result = mysqli_query($dbc, $query)) {
+        print '<p class="input--success">Administrator privileges revoked.</p>';
+    } else {
+        print '<p class="input--error">Unable to perform update to account.</p>';
+    }
+    header("Refresh:3; url=admin.php");
+    mysqli_close($dbc);
+    }  
+    elseif($_POST['change'] == 'delete') {
      $query = "DELETE FROM users WHERE username='{$_POST['user']}'";
      
      $dir = '../users/' . $_POST['user'] . '/';
