@@ -11,7 +11,6 @@ if(!isset($_SESSION['username'])) {
 
     if($_SERVER['REQUEST_METHOD'] == 'POST') {
         $dir = '../users/' . $_SESSION['username'] . '/';
-        $dir = realpath($dir);
 
         // Check the file extension/type
         $valid = FALSE;
