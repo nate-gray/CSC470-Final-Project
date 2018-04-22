@@ -42,7 +42,7 @@ if (isset($_GET['id']) && is_numeric($_GET['id']) && ($_GET['id'] > 0) ) {
 	}
 
 } else { 
-    unauthorized();
+    print '<p class="input--error">You have reached this page in error.</p>';
 } 
 
 mysqli_close($dbc); // Close the connection.

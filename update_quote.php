@@ -4,7 +4,9 @@ define('TITLE', 'Update Quote');
 include('templates/header.php');
 include('../mysqli_connect.php');
 
-if(isset($_SESSION['username'])) {
+if($_SERVER['REQUEST_METHOD'] == 'POST') {
+    
+    if(isset($_SESSION['username'])) {
     print '<h2>Update Quote</h2>';
 
 if(isset($_GET['id']) && is_numeric($_GET['id']) && $_GET['id'] > 0) {
@@ -58,6 +60,12 @@ mysqli_close($dbc);
 } else {
     unauthorized();
 }
+    
+} else {
+    print '<p class="input--error">You have reached this page in error.</p>';
+}
+
+
 
 
 include('templates/footer.php')
