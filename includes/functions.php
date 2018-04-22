@@ -7,6 +7,7 @@ function unauthorized() {
 
 function checkAccountStatus($un) {
     $query = "SELECT username, status FROM users WHERE username='$un'";
+    global $dbc;
     if ($result = mysqli_query($dbc, $query)) { 
         $row = mysqli_fetch_array($result);
 
@@ -20,6 +21,7 @@ function checkAccountStatus($un) {
 
 function isAdmin($un) {     
     $query = "SELECT username, admin FROM users WHERE username='$un'";
+    global $dbc;
     if ($result = mysqli_query($dbc, $query)) { 
         $row = mysqli_fetch_array($result);
 
