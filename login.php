@@ -4,8 +4,6 @@ include('templates/header.php');
 
 //Connect to the db
 include('../mysqli_connect.php');
-//$dbc = mysqli_connect('localhost', 'web_user', 'webpassword', 'fanclub');
-//mysqli_set_charset($dbc, 'utf8');
 
 // Print some introductory text:
 print '<h2>Login Form</h2>

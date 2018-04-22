@@ -6,8 +6,6 @@ function unauthorized() {
 }
 
 function checkAccountStatus($un) {
-    $dbc = mysqli_connect('localhost', 'web_user', 'webpassword', 'fanclub');
-    mysqli_set_charset($dbc, 'utf8');
     $query = "SELECT username, status FROM users WHERE username='$un'";
     if ($result = mysqli_query($dbc, $query)) { 
         $row = mysqli_fetch_array($result);
@@ -20,9 +18,7 @@ function checkAccountStatus($un) {
     }
 }
 
-function isAdmin($un) {
-    $dbc = mysqli_connect('localhost', 'web_user', 'webpassword', 'fanclub');
-    mysqli_set_charset($dbc, 'utf8');       
+function isAdmin($un) {     
     $query = "SELECT username, admin FROM users WHERE username='$un'";
     if ($result = mysqli_query($dbc, $query)) { 
         $row = mysqli_fetch_array($result);
