@@ -56,7 +56,9 @@ if(isset ($_SESSION['username'])) {
         $query_users = "SELECT username FROM users";
         if ($result = mysqli_query($dbc, $query_users)) { 
             while($row = mysqli_fetch_array($result)) {
-                print '<option value="' . $row['username'] . '">' . $row['username'] . '</option>';
+                if($row['username'] != $_SESSION['username']) {
+                    print '<option value="' . $row['username'] . '">' . $row['username'] . '</option>';
+                }  
             }
             
         }
