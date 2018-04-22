@@ -20,6 +20,8 @@ if(!isset($_SESSION['username'])) {
 
         if($valid) {
             if(move_uploaded_file($_FILES['the_file']['tmp_name'], "$dir{$_FILES['the_file']['name']}")) {
+
+                
                 print '<p class="input--success">File successfully uploaded!</p>';
             }
         } else {
