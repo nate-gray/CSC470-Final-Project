@@ -11,6 +11,7 @@ if($_POST['change'] == 'OPEN') {
     } else {
         print '<p class="input--error">Unable to perform update to account.</p>';
     }
+    header("Refresh:3; url=admin.php");
     mysqli_close($dbc);
 }elseif($_POST['change'] == 'LOCKED') {
     $query = "UPDATE users SET status='LOCKED' WHERE username='{$_POST['user']}'";
@@ -19,6 +20,7 @@ if($_POST['change'] == 'OPEN') {
     } else {
         print '<p class="input--error">Unable to perform update to account.</p>';
     }
+    header("Refresh:3; url=admin.php");
     mysqli_close($dbc);
 } elseif($_POST['change'] == 'make_admin') {
         $query = "UPDATE users SET admin='Y' WHERE username='{$_POST['user']}'";
@@ -27,6 +29,7 @@ if($_POST['change'] == 'OPEN') {
     } else {
         print '<p class="input--error">Unable to perform update to account.</p>';
     }
+    header("Refresh:3; url=admin.php");
     mysqli_close($dbc);
 } elseif($_POST['change'] == 'delete') {
      $query = "DELETE FROM users WHERE username='{$_POST['user']}'";
@@ -45,6 +48,7 @@ if($_POST['change'] == 'OPEN') {
     } else {
         print '<p class="input--error">Unable to perform update to account.</p>';
     }
+    header("Refresh:3; url=admin.php");
     mysqli_close($dbc);
 } 
 
