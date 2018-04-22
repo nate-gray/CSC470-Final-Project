@@ -2,11 +2,13 @@
 define('TITLE', 'Register');
 include('templates/header.php');
 
-// Print some introductory text:
-print '<h2>Registration Form</h2>
-	<p>Register so that you can take full advantage of this site.</p>';
+
 
 include('../mysqli_connect.php');
+
+if(isset($_SESSION['username'])) {
+    header("Location: index.php");
+} 
 
 // Check if the form has been submitted:
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
