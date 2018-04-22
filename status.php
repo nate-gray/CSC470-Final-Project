@@ -4,7 +4,8 @@ define('TITLE', 'Status');
 include('templates/header.php');
 include('../mysqli_connect.php');
 
-if($_POST['change'] == 'OPEN') {
+if($_SERVER['REQUEST_METHOD'] == 'POST') {
+    if($_POST['change'] == 'OPEN') {
     $query = "UPDATE users SET status='OPEN' WHERE username='{$_POST['user']}'";
     if($result = mysqli_query($dbc, $query)) {
         print '<p class="input--success">Account is open.</p>';
@@ -13,7 +14,7 @@ if($_POST['change'] == 'OPEN') {
     }
     header("Refresh:3; url=admin.php");
     mysqli_close($dbc);
-}elseif($_POST['change'] == 'LOCKED') {
+    } elseif($_POST['change'] == 'LOCKED') {
     $query = "UPDATE users SET status='LOCKED' WHERE username='{$_POST['user']}'";
     if($result = mysqli_query($dbc, $query)) {
         print '<p class="input--success">Account is locked.</p>';
@@ -22,7 +23,7 @@ if($_POST['change'] == 'OPEN') {
     }
     header("Refresh:3; url=admin.php");
     mysqli_close($dbc);
-} elseif($_POST['change'] == 'make_admin') {
+    } elseif($_POST['change'] == 'make_admin') {
         $query = "UPDATE users SET admin='Y' WHERE username='{$_POST['user']}'";
     if($result = mysqli_query($dbc, $query)) {
         print '<p class="input--success">Account is now admin.</p>';
@@ -31,7 +32,7 @@ if($_POST['change'] == 'OPEN') {
     }
     header("Refresh:3; url=admin.php");
     mysqli_close($dbc);
-} elseif($_POST['change'] == 'delete') {
+    } elseif($_POST['change'] == 'delete') {
      $query = "DELETE FROM users WHERE username='{$_POST['user']}'";
      
      $dir = '../users/' . $_POST['user'] . '/';
@@ -50,7 +51,12 @@ if($_POST['change'] == 'OPEN') {
     }
     header("Refresh:3; url=admin.php");
     mysqli_close($dbc);
-} 
+    } 
+} else {
+    print '<p class="input--error">You have reached this page in error.</p>';
+}
+
+
 
 
 include('templates/footer.php')
